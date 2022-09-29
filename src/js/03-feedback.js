@@ -38,8 +38,7 @@ const onSubmit = e => {
     e.preventDefault();
     console.log(localStorage[storageKey]);
     localStorage.removeItem(storageKey);
-    emailEl.value = '';
-    messageEl.value = '';
+    feedbackForm.reset();
 }
 
     
