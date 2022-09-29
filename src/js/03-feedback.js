@@ -36,7 +36,7 @@ const saveDataOnInput = () => {
 
 const onSubmit = e => {
     e.preventDefault();
-    console.log(localStorage[storageKey]);
+    console.log(JSON.parse(localStorage[storageKey]));
     localStorage.removeItem(storageKey);
     feedbackForm.reset();
 }
