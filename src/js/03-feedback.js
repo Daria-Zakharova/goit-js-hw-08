@@ -25,10 +25,12 @@ const saveDataOnInput = () => {
 
     if (feedbackData.email || feedbackData.message.trim()) {
         localStorage.setItem(storageKey, JSON.stringify(feedbackData));
+        return;
     }
 
     if (!feedbackData.email && !feedbackData.message.trim()) {
         localStorage.removeItem(storageKey);
+        return;
     }
 }
 
