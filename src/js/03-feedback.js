@@ -1,44 +1,40 @@
 import throttle from "lodash.throttle";
 
 const feedbackForm = document.querySelector('.feedback-form');
-const storageKey = "feedback-form-state";
+const STORAGE_KEY = "feedback-form-state";
 const emailEl = feedbackForm.elements.email;
 const messageEl = feedbackForm.elements.message;
 
 const autocompleteOnLoad = () => {
-    if (!localStorage[storageKey]) {
+    if (!localStorage[STORAGE_KEY]) {
         return;
     }
     
-    const storageData = JSON.parse(localStorage[storageKey]);
+    const storageData = JSON.parse(localStorage[STORAGE_KEY]);
 
-    emailEl.value = storageData.email ? storageData.email : '';
-    messageEl.value = storageData.message ? storageData.message : '';
+    emailEl.value = storageData.email;
+    messageEl.value = storageData.message;
 }
     
 const saveDataOnInput = () => {
-    
     const { elements: {
         email, message, }, } = feedbackForm;
     
     const feedbackData = { email: email.value, message: message.value };
 
-    if (feedbackData.email || feedbackData.message.trim()) {
-        localStorage.setItem(storageKey, JSON.stringify(feedbackData));
-        return;
-    }
-
-    if (!feedbackData.email && !feedbackData.message.trim()) {
-        localStorage.removeItem(storageKey);
-        return;
-    }
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(feedbackData));
 }
 
 const onSubmit = e => {
     e.preventDefault();
-    console.log(JSON.parse(localStorage[storageKey]));
-    localStorage.removeItem(storageKey);
-    feedbackForm.reset();
+    if (!emailEl.value || !messageEl.value) {
+        alert('Please, fill in all required fields and try again.');
+    }
+    else {
+        console.log(JSON.parse(localStorage[STORAGE_KEY]));
+        localStorage.removeItem(STORAGE_KEY);
+        e.currentTarget.reset();
+    }
 }
 
     

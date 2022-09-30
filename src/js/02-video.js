@@ -9,12 +9,11 @@ const setTime = () => {
     if (!localStorage["videoplayer-current-time"]) {
         return;
     }
+    
     let time = localStorage.getItem("videoplayer-current-time");
-    player.setCurrentTime(time).then(function(seconds) {
-    // seconds = the actual time that the player seeked to
-}).catch(function(error) {
+    player.setCurrentTime(time).catch(function (error) {
         console.log(error.message);
-});
+    });
 }
 
 const getTime = () => {
@@ -27,4 +26,4 @@ const getTime = () => {
 
 player.on('timeupdate', throttle(getTime, 1000));
 
-player.on('play', setTime);
+setTime();
